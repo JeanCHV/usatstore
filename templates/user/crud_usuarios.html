@@ -1,0 +1,269 @@
+{% extends "index.html" %}
+
+{% block titulo %}
+    Lista Usuarios
+{% endblock %}
+
+{% block contenido %}
+    <section class="section">
+        <div class="container-xl">
+            <div class="row mb-3">
+                <div class="col-12">
+                    <a href="{{url_for('formulario_agregar_usuario')}}" class="btn btn-primary btn-agregar btn-lg">Agregar</a>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <div class="table-wrapper">
+                    <div class="table-title">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h2><b>Gestionar Usuarios</b></h2>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="search-box">
+                                    <i class="material-icons">&#xE8B6;</i>
+                                    <!--<input type="search" class="form-control form-control-sm" placeholder="Buscar Usuario&hellip;">-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table id="example" class="table table-striped" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Password</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Tipo Usuario</th>
+                                <th scope="col">Editar</th>
+                                <th scope="col">Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for usuario in usuarios %}
+                            <tr>
+                                <td>{{usuario[0]}}</td>
+                                <td>{{usuario[1]}}</td>
+                                <td>{{usuario[2]}}</td>
+                                <td>{{usuario[3]}}</td>
+                                <td>{{usuario[4]}}</td>
+                                <td>
+                                    <a href="{{url_for('editar_usuario', id=usuario[0])}}" class="btn btn-info">Editar</a>
+                                </td>
+                                <td>
+                                    <form action="{{url_for('eliminar_usuario')}}" method="POST">
+                                        <input type="hidden" name="id" value="{{usuario[0]}}">
+                                        <button class="btn btn-danger">Eliminar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Password</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Tipo Usuario</th>
+                                <th scope="col">Editar</th>
+                                <th scope="col">Eliminar</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <div class="clearfix">
+                        <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+                        <ul class="pagination">
+                            <li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                            <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                            <li class="page-item"><a href="#" class="page-link">2</a></li>
+                            <li class="page-item "><a href="#" class="page-link">3</a></li>
+                            <li class="page-item"><a href="#" class="page-link">4</a></li>
+                            <li class="page-item"><a href="#" class="page-link">5</a></li>
+                            <li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <style>
+        /* Estilos adicionales para el botón Agregar */
+        .btn-agregar {
+            background-color: #28a745; /* Color de fondo verde */
+            border-color: #28a745; /* Color del borde verde */
+            border-radius: 10px;
+            padding: 10px 20px;
+            margin-bottom: 20px; /* Agregado para crear espacio entre el botón y la cabecera */
+        }
+
+        .btn-agregar:hover {
+            background-color: #218838; /* Color de fondo verde oscuro al pasar el mouse */
+            border-color: #218838; /* Color del borde verde oscuro al pasar el mouse */
+        }
+
+        .btn-agregar:focus {
+            box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5); /* Sutil sombra al enfocarse */
+        }
+
+        /* Resto de los estilos */
+        .section {
+            /* Estilo de la sección principal */
+        }
+
+        .text-center {
+            /* Centrar el contenido en el contenedor */
+            text-align: center;
+        }
+
+        body {
+            color: #566787;
+            background: #f5f5f5;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .table-responsive {
+            margin: 30px 0;
+        }
+
+        .table-wrapper {
+            min-width: 1000px;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+        }
+
+        .table-title {
+            padding-bottom: 10px;
+            margin: 0 0 10px;
+            min-width: 100%;
+        }
+
+        .table-title h2 {
+            margin: 8px 0 0;
+            font-size: 22px;
+        }
+
+        .search-box {
+            position: relative;
+            float: right;
+        }
+
+        .search-box input {
+            height: 34px;
+            border-radius: 20px;
+            padding-left: 35px;
+            border-color: #ddd;
+            box-shadow: none;
+        }
+
+        .search-box input:focus {
+            border-color: #3FBAE4;
+        }
+
+        .search-box i {
+            color: #a0a5b1;
+            position: absolute;
+            font-size: 19px;
+            top: 8px;
+            left: 10px;
+        }
+
+        table.table tr th,
+        table.table tr td {
+            border-color: #e9e9e9;
+        }
+
+        table.table-striped tbody tr:nth-of-type(odd) {
+            background-color: #fcfcfc;
+        }
+
+        table.table-striped.table-hover tbody tr:hover {
+            background: #f5f5f5;
+        }
+
+        table.table th i {
+            font-size: 13px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        table.table td:last-child {
+            width: 130px;
+        }
+
+        table.table td a {
+            color: #a0a5b1;
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        table.table td a.view {
+            color: #03A9F4;
+        }
+
+        table.table td a.edit {
+            color: #FFC107;
+        }
+
+        table.table td a.delete {
+            color: #E34724;
+        }
+
+        table.table td i {
+            font-size: 19px;
+        }
+
+        .pagination {
+            float: right;
+            margin: 0 0 5px;
+        }
+
+        .pagination li a {
+            border: none;
+            font-size: 95%;
+            width: 30px;
+            height: 30px;
+            color: #999;
+            margin: 0 2px;
+            line-height: 30px;
+            border-radius: 30px !important;
+            text-align: center;
+            padding: 0;
+        }
+
+        .pagination li a:hover {
+            color: #666;
+        }
+
+        .pagination li.active a {
+            background: #03A9F4;
+        }
+
+        .pagination li.active a:hover {
+            background: #0397d6;
+        }
+
+        .pagination li.disabled i {
+            color: #ccc;
+        }
+
+        .pagination li i {
+            font-size: 16px;
+            padding-top: 6px;
+        }
+
+        .hint-text {
+            float: left;
+            margin-top: 6px;
+            font-size: 95%;
+        }
+    </style>
+    <script>
+        new DataTable('#example');
+    </script>
+    <script>new DataTable('#example');</script>
+{% endblock %}

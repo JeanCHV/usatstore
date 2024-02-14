@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+
+{% block titulo %}Modificar Datos - UsatStore{% endblock %}
+
+{% block contenido %}
+<div class="container mt-4">
+    <h2 class="mb-4">Modificar Datos</h2>
+    <form method="POST" action="{{ url_for('modificar_datos') }}">
+        <div class="mb-3">
+            <label for="username" class="form-label">Nombre de Usuario:</label>
+            <input type="text" class="form-control" id="username" name="username" value="{{ nombre_usuario }}" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="new_password" class="form-label">Nueva Contraseña:</label>
+            <input type="password" class="form-control" id="new_password" name="new_password" required>
+        </div>
+        <div class="mb-3">
+            <label for="new_email" class="form-label">Nuevo Correo Electrónico:</label>
+            <input type="email" class="form-control" id="new_email" name="new_email" required>
+        </div>
+        <div class="mb-3">
+
+            <input type="hidden" class="form-control" id="tipo_usuario" name="tipo_usuario" required value="cliente">
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    </form>
+</div>
+{% endblock %}

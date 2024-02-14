@@ -1,0 +1,114 @@
+/*TABLA*/
+
+table {
+    color: #000000;
+    font-size: 16px;
+    
+  }
+ 
+
+.table-responsive{
+  overflow-x: hidden;
+}
+  thead {
+    background: #ffffff;
+    border-bottom: solid 2px #464b4e;
+  }
+  
+  th {
+    text-align: start;
+    padding: 20px 15px;
+    font-weight: 700;
+  }
+  
+  td {
+    padding: 15px;
+    border-bottom: solid 2px #e9e9eb;
+    font-weight: 500;
+  }
+  table tbody tr:nth-child(even) {
+    background: #f7f7f8;
+  }
+  .estadoCL{
+    font-size: 16px;
+  }
+  .activoEstado{
+    background-color: #dcfce8;
+    color: #16a34b;
+    border-radius: 25px;
+    text-align: center;
+    padding: 3px;
+  }
+  .noactivoEstado{
+    background-color: #ffe2e3;
+    color: #de2e2e;
+    border-radius: 25px;
+    text-align: center;
+    padding: 3px;
+  }
+  
+  .tdTotal {
+    display: flex;
+    align-items: center;
+  }
+  .tdTotal h5 {
+    margin: 0;
+  }
+  
+  .estadoCL {
+    font-size: 16px;
+    margin: 0;
+  }
+  @media screen and (max-width: 999px) {
+  
+    table,.estadoCL{
+      font-size: 12px;
+    }
+  
+    .navbar-brand{
+      font-family: "Poppins", sans-serif;
+      font-weight: 600;
+      display: block;
+    }
+    section{
+      width: 100vw;
+    }
+    .contenido,.extras{
+      width: 80%;
+    }
+    .table-responsive{
+      overflow-x: auto;
+    }
+    
+    
+  }
+  @media (min-width: 300px) and (max-width: 599px) {
+  
+    
+    .estadoCL{
+      font-size: 10px;
+    }
+   
+    .contenido,.extras{
+      width: 70%;
+    }
+    .table{
+      font-size: 10px;
+      overflow-x: auto;
+    }
+    .btnCel{
+        width: 30px;
+        font-size: 10px;
+        text-align: center;
+      }
+      .btnCel1{
+        width: 0px;
+        font-size: 20px;
+        text-align: left;
+        padding-left: 50px;
+      }
+     
+      .contenido,.extras{
+        width: 45%;
+      }
+  }

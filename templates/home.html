@@ -1,0 +1,78 @@
+{% extends "index.html" %}
+{% block titulo %}
+Inicio
+{% endblock %}
+{% block contenido %}
+
+<!-- Carrousel- Nuevos-->
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="static/img/new_1.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="static/img/new_2.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="static/img/new_3.jpg" class="d-block w-100" alt="...">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+    </button>
+</div>
+
+
+</div>
+
+<div>Nuevos Productos</div><!-- Cargar productos desde la Base de datos -->
+<div class="row">
+    <!-- Comienza el bucle para las tarjetas -->
+    {% for producto in productos %}
+    <div class="col-md-4 col-lg-3 mb-4">
+        <div class="card h-100">
+            <!-- Product image-->
+            {% if producto[5] %}
+            <img class="card-img-top" src="{{ url_for('static', filename='img/productos/' + producto[5]) }}" alt=""
+                style="max-height: auto; object-fit: cover;">
+            {% else %}
+            <img class="card-img-top" src="{{ url_for('static', filename='img/productos/producto-sin-imagen.png') }}" alt=""
+                style="max-height: 490px; object-fit: cover;">
+            {% endif %}
+
+            <!-- Product details-->
+            <div class="card-body p-4">
+                <div class="text-center">
+                    <!-- Product name-->
+                    <div class="d-flex justify-content-center text-warning">
+                        <div class="bi-star-fill"></div>
+                        <div class="bi-star-fill"></div>
+                        <div class="bi-star-fill"></div>
+                        <div class="bi-star-fill"></div>
+                        <div class="bi-star"></div>
+                    </div>
+                    <h5 class="fw-bolder">{{ producto[1] }}</h5>
+                    <!-- Product price-->
+                    S/ {{ producto[3] }}
+                </div>
+            </div>
+            <!-- Product actions-->
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                    <a class="btn btn-outline-dark mt-auto" href="/productos/{{ producto[0] }}">Ver producto</a>
+                    <a class="btn btn-outline-dark mt-auto" href=#><img alt="Carrito"
+                            src="https://www.svgrepo.com/show/489135/shopping-cart.svg" style="max-height: 35px" />+</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <!-- Fin del bucle para las tarjetas -->
+</div>
+</div>
+{% endblock %}

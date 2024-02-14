@@ -1,0 +1,51 @@
+{% extends "index.html" %}
+
+{% block titulo %}
+    Contáctanos
+{% endblock %}
+
+{% block contenido %}
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h2 class="mb-4">Formulario de Contacto</h2>
+                    <form>
+                        <div class="mb-3">
+                            <label for="direccion" class="form-label">Dirección:</label>
+                            <input type="text" class="form-control" id="direccion" name="direccion" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="correo" class="form-label">Correo Electrónico:</label>
+                            <input type="email" class="form-control" id="correo" name="correo" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="telefono" class="form-label">Número de Teléfono:</label>
+                            <input type="tel" class="form-control" id="telefono" name="telefono" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="mensaje" class="form-label">Mensaje:</label>
+                            <textarea class="form-control" id="mensaje" name="mensaje" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </form>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Información de Contacto</h5>
+                            <p class="card-text">
+                                <strong>UsatStore</strong>, una tienda de productos tecnológicos:<br>
+                                <strong>Dirección:</strong> Avenida Futurista, 1234, Ciudad Tecnotrópolis.<br>
+                                <strong>Correo Electrónico:</strong> info@usatstore.com<br>
+                                <strong>Número de Teléfono:</strong> +123 456 7890<br>
+                                <strong>Horario de Atención:</strong> Lunes a Viernes de 9:00 AM a 6:00 PM (hora tecnotrópica).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

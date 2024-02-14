@@ -1,0 +1,55 @@
+{% extends "index.html" %}
+{% block titulo %}
+Editar Cliente
+{% endblock %}
+{% block contenido %}
+<section class="section">
+    <div class="columns">
+        <div class="column">
+            <h3 class="is-size-3">Editar Cliente</h3>
+          
+          <div class="container">
+            <div class="card">
+                <div class="card-body">
+                    <form action="{{url_for('actualizar_cliente')}}" method="post">
+                        {# Enviar el id en un campo oculto #}
+        
+                        <div class="row mb-3">
+                            <div class="col">
+                                <input value="{{clientes[0]}}"  type="hidden" class="input obligatorio" placeholder="Id" name="id" id="id">
+                                <label for="Nombre">Nombre:</label>
+                                <input value="{{clientes[1]}}" required type="text" class="form-control mb-3" placeholder="Nombre" name="nombre" id="nombre">
+                            </div>
+                    
+                            <div class="col">
+                                <label for="Email">Email:</label>
+                                <input value="{{clientes[2]}}" required type="text" class="form-control mb-3" placeholder="Email" name="email" id="email">
+                            </div>
+                            <div class="col">
+                                <label for="Direccion">Direccion:</label>
+                                <input value="{{clientes[3]}}" required type="text" class="form-control mb-3" placeholder="Direccion" name="direccion" id="direccion">
+                            </div>
+                         
+                            
+                            <div class="col"><br>
+                                <button type="submit" class="btn btn-success mb-3">Guardar <i class="fa-regular fa-floppy-disk"></i></button>
+                                <a href="{{url_for('formulario_crud_cliente')}}" class="btn btn-warning mb-3">Volver <i class="fa-sharp fa-solid fa-rotate-left"></i></a>
+                                
+                            </div>
+                          
+                           
+            
+                            
+                        </div>
+
+                       
+                    </form>
+                </div>
+            </div>
+          </div>
+          
+           
+        </div>
+    </div>
+</section>
+{% endblock %}

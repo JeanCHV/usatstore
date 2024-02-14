@@ -1,0 +1,747 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "CRUD USAT STORE - OpenAPI 3.0",
+    "description": "¡Bienvenidos a nuestra plataforma de E-Commerce de productos electrónicos de última generación! Este servidor se ha desarrollado siguiendo la especificación OpenAPI 3.0, lo que garantiza una integración fluida, documentación clara y una experiencia de usuario excepcional.",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.11"
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  },
+  "servers": [
+    {
+      "url": "Grupo04DAW.pythonanywhere.com"
+    }
+  ],
+  "tags": [
+    {
+      "name": "cliente",
+      "description": "Todo sobre tus Clientes",
+      "externalDocs": {
+        "description": "Saber más",
+        "url": "http://swagger.io"
+      }
+    },
+    {
+      "name": "producto",
+      "description": "Acceso a productos de USAT STORE",
+      "externalDocs": {
+        "description": "Descubra más sobre nuestra tienda",
+        "url": "http://swagger.io"
+      }
+    },
+    {
+      "name": "usuario",
+      "description": "Operaciones sobre usuario"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "jwt": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "Usar el esquema \"Bearer\" para incluir el token JWT."
+      }
+    }
+  },
+  "paths": {
+    "/api_obtener_cliente": {
+      "get": {
+        "tags": [
+          "cliente"
+        ],
+        "summary": "Obtener listado de clientes",
+        "description": "Retorna un listado de todos los clientes.",
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": 1,
+                  "data": [
+                    {
+                      "id": 1,
+                      "email": "jc_26.10@hotmail.com",
+                      "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+                      "tipo_usuario": "administrador",
+                      "username": "admin"
+                    },
+                    {
+                      "id": 2,
+                      "email": "71870269@gmail.com",
+                      "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+                      "tipo_usuario": "cliente",
+                      "username": "71870269"
+                    },
+                    {
+                      "id": 4,
+                      "email": "user_4@hotmail.com",
+                      "password": "481f6cc0511143ccdd7e2d1b1b94faf0a700a8b49cd13922a70b5ae28acaa8c5",
+                      "tipo_usuario": "cliente",
+                      "username": "user_41"
+                    },
+                    {
+                      "id": 5,
+                      "email": "prueba@gmail.com",
+                      "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+                      "tipo_usuario": "cliente",
+                      "username": "prueba"
+                    },
+                    {
+                      "id": 6,
+                      "email": "prueba2@gmail.com",
+                      "password": "481f6cc0511143ccdd7e2d1b1b94faf0a700a8b49cd13922a70b5ae28acaa8c5",
+                      "tipo_usuario": "cliente",
+                      "username": "prueba2"
+                    },
+                    {
+                      "id": 7,
+                      "email": "new_user@gmail.com",
+                      "password": "123456",
+                      "tipo_usuario": "administrador",
+                      "username": "usuario_nuevo"
+                    },
+                    {
+                      "id": 8,
+                      "email": "jair@gmail.com",
+                      "password": "49dc52e6bf2abe5ef6e2bb5b0f1ee2d765b922ae6cc8b95d39dc06c21c848f8c",
+                      "tipo_usuario": "administrador",
+                      "username": "jair"
+                    },
+                    {
+                      "id": 11,
+                      "email": "jcachay@gmail.com",
+                      "password": "481f6cc0511143ccdd7e2d1b1b94faf0a700a8b49cd13922a70b5ae28acaa8c5",
+                      "tipo_usuario": "cliente",
+                      "username": "jcachay"
+                    },
+                    {
+                      "id": 12,
+                      "email": "vsalobo@gmail.com",
+                      "password": "59cc0647530b30807af9631e6430ba71063b5fc13fb0cb9e341e3e9aca2f8262",
+                      "tipo_usuario": "cliente",
+                      "username": "Anyeko"
+                    },
+                    {
+                      "id": 13,
+                      "email": "admin@123456.com",
+                      "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+                      "tipo_usuario": "cliente",
+                      "username": "admin123456"
+                    },
+                    {
+                      "id": 14,
+                      "email": "carlos@gmail.com",
+                      "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+                      "tipo_usuario": "administrador",
+                      "username": "carlos"
+                    },
+                    {
+                      "id": 15,
+                      "email": "carlos1@gmail.com",
+                      "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+                      "tipo_usuario": "administrador",
+                      "username": "carlos1"
+                    }
+                  ],
+                  "message": "Listado de Usuarios correcto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api_guardar_cliente": {
+      "post": {
+        "tags": [
+          "cliente"
+        ],
+        "summary": "Guardar un nuevo cliente",
+        "description": "Guarda un nuevo cliente en la base de datos.",
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "nombre": "Nuevo Cliente",
+                "email": "nuevo_cliente@example.com",
+                "direccion": "Dirección Nuevo Cliente"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "codigo": "1",
+                  "mensaje": "Cliente guardado correctamente."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api_actualizar_cliente": {
+      "post": {
+        "tags": [
+          "cliente"
+        ],
+        "summary": "Actualizar un cliente existente",
+        "description": "Actualiza la información de un cliente existente.",
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "id": 1,
+                "nombre": "Cliente Actualizado",
+                "email": "cliente_actualizado@example.com",
+                "direccion": "Dirección Cliente Actualizado"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "codigo": "1",
+                  "mensaje": "Cliente actualizado correctamente."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api_eliminar_cliente": {
+      "post": {
+        "tags": [
+          "cliente"
+        ],
+        "summary": "Eliminar un cliente",
+        "description": "Elimina un cliente de la base de datos.",
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "id": 1
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "codigo": "1",
+                  "mensaje": "Cliente eliminado correctamente."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api_obtener_productos": {
+      "get": {
+        "tags": [
+          "producto"
+        ],
+        "summary": "Obtener listado de productos",
+        "description": "Retorna un listado de todos los productos.",
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": 1,
+                  "data": [
+                    {
+                      "id": 1,
+                      "nombre": "Logitech G213",
+                      "descripcion": "TECLADO LOGITECH G213 MEMBRANA",
+                      "precio": "150.00",
+                      "stock": 27,
+                      "imagen": "TecladoLogitec1.jpg"
+                    },
+                    {
+                      "id": 2,
+                      "nombre": "Corsair Ram DDR4 8Gb",
+                      "descripcion": "MEMORIA RAM CORSAIR DDR4 8GB",
+                      "precio": "199.00",
+                      "stock": 15,
+                      "imagen": "prod_2.jpg"
+                    },
+                    {
+                      "id": 3,
+                      "nombre": "WD_BLACK NVME SN770 SSD 250GB",
+                      "descripcion": "SSD WD_BLACK NVME SN770 SSD 250GB",
+                      "precio": "369.00",
+                      "stock": 10,
+                      "imagen": "prod_3.jpg"
+                    },
+                    {
+                      "id": 4,
+                      "nombre": "DISCO SSD T-FORCE VULCAN Z 512GB",
+                      "descripcion": "SSD T-FORCE VULCAN Z 512GB",
+                      "precio": "259.00",
+                      "stock": 20,
+                      "imagen": "prod_4.jpg"
+                    },
+                    {
+                      "id": 5,
+                      "nombre": "PLACA MADRE ASUS PRIME H610M-K D4",
+                      "descripcion": "MOTHERBOARD ASUS PRIME H610M-K D4",
+                      "precio": "361.00",
+                      "stock": 5,
+                      "imagen": "prod_5.jpg"
+                    },
+                    {
+                      "id": 6,
+                      "nombre": "PLACA MADRE ASUS TUF GAMING B550 PLUS",
+                      "descripcion": "MOTHERBOARD ASUS TUF GAMING B550 PLUS",
+                      "precio": "361.00",
+                      "stock": 20,
+                      "imagen": "prod_6.jpg"
+                    },
+                    {
+                      "id": 7,
+                      "nombre": "NUEVO MOUSE GAMING LOGITECH G502",
+                      "descripcion": "MOUSE GAMING LOGITECH G502",
+                      "precio": "235.00",
+                      "stock": 5,
+                      "imagen": "prod_7.jpg"
+                    },
+                    {
+                      "id": 8,
+                      "nombre": "MOUSE GAMING LOGITECH G502 KDA LOL",
+                      "descripcion": "MOUSE GAMING LOGITECH G502 KDA LOL",
+                      "precio": "299.00",
+                      "stock": 70,
+                      "imagen": null
+                    },
+                    {
+                      "id": 9,
+                      "nombre": "AUDIFONO HYPER X",
+                      "descripcion": "HYPER X CLOUD GAMING",
+                      "precio": "200.00",
+                      "stock": 20,
+                      "imagen": "prod_10.jpg"
+                    }
+                  ],
+                  "message": "Listado de Productos correcto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api_guardar_productos": {
+      "post": {
+        "tags": [
+          "producto"
+        ],
+        "summary": "Guardar un nuevo producto",
+        "description": "Guarda un nuevo producto en la base de datos.",
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "nombre": "Nuevo Producto",
+                "descripcion": "Descripción del Nuevo Producto",
+                "precio": 39.99,
+                "stock": 75,
+                "imagen": "ImagenProducto.jpg"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "codigo": "1",
+                  "mensaje": "Producto guardado correctamente."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api_actualizar_producto": {
+      "post": {
+        "tags": [
+          "producto"
+        ],
+        "summary": "Actualizar un producto existente",
+        "description": "Actualiza la información de un producto existente.",
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "id": 1,
+                "nombre": "Producto Actualizado",
+                "descripcion": "Descripción del Producto Actualizado",
+                "precio": 49.99,
+                "stock": 125,
+                "imagen": "ImagenProductoActualizado.jpg"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "codigo": "1",
+                  "mensaje": "Producto actualizado correctamente."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api_eliminar_producto": {
+      "post": {
+        "tags": [
+          "producto"
+        ],
+        "summary": "Eliminar un producto",
+        "description": "Elimina un producto de la base de datos.",
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "id": 1
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "codigo": "1",
+                  "mensaje": "producto eliminado correctamente."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api_obtener_usuarios": {
+      "get": {
+        "tags": [
+          "usuario"
+        ],
+        "summary": "Obtener listado de usuarios",
+        "description": "Retorna un listado de todos los usuarios.",
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "data": [
+                    {
+                      "id": 1,
+                      "username": "admin",
+                      "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+                      "email": "admin@gmail.com",
+                      "tipo_usuario": "administrador"
+                    },
+                    {
+                      "id": 2,
+                      "username": 71870269,
+                      "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+                      "email": "71870269@gmail.com",
+                      "tipo_usuario": "cliente"
+                    },
+                    {
+                      "id": 4,
+                      "username": "user_41",
+                      "password": "481f6cc0511143ccdd7e2d1b1b94faf0a700a8b49cd13922a70b5ae28acaa8c5",
+                      "email": "user_4@hotmail.com",
+                      "tipo_usuario": "cliente"
+                    },
+                    {
+                      "id": 5,
+                      "username": "prueba",
+                      "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+                      "email": "prueba@gmail.com",
+                      "tipo_usuario": "cliente"
+                    },
+                    {
+                      "id": 6,
+                      "username": "prueba2",
+                      "password": "481f6cc0511143ccdd7e2d1b1b94faf0a700a8b49cd13922a70b5ae28acaa8c5",
+                      "email": "prueba2@gmail.com",
+                      "tipo_usuario": "cliente"
+                    },
+                    {
+                      "id": 7,
+                      "username": "usuario_nuevo",
+                      "password": 123456,
+                      "email": "new_user@gmail.com",
+                      "tipo_usuario": "administrador"
+                    },
+                    {
+                      "id": 8,
+                      "username": "jair",
+                      "password": "49dc52e6bf2abe5ef6e2bb5b0f1ee2d765b922ae6cc8b95d39dc06c21c848f8c",
+                      "email": "jair@gmail.com",
+                      "tipo_usuario": "administrador"
+                    },
+                    {
+                      "id": 11,
+                      "username": "jcachay",
+                      "password": "481f6cc0511143ccdd7e2d1b1b94faf0a700a8b49cd13922a70b5ae28acaa8c5",
+                      "email": "jcachay@gmail.com",
+                      "tipo_usuario": "cliente"
+                    },
+                    {
+                      "id": 12,
+                      "username": "Anyeko",
+                      "password": "59cc0647530b30807af9631e6430ba71063b5fc13fb0cb9e341e3e9aca2f8262",
+                      "email": "vsalobo@gmail.com",
+                      "tipo_usuario": "cliente"
+                    },
+                    {
+                      "id": 13,
+                      "username": "admin123456",
+                      "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+                      "email": "admin@123456.com",
+                      "tipo_usuario": "cliente"
+                    },
+                    {
+                      "id": 14,
+                      "username": "carlos",
+                      "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+                      "email": "carlos@gmail.com",
+                      "tipo_usuario": "administrador"
+                    },
+                    {
+                      "id": 15,
+                      "username": "carlos1",
+                      "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+                      "email": "carlos1@gmail.com",
+                      "tipo_usuario": "administrador"
+                    },
+                    {
+                      "id": 17,
+                      "username": "",
+                      "password": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "email": "",
+                      "tipo_usuario": "administrador"
+                    }
+                  ],
+                  "code": 1,
+                  "message": "Listado de Usuarios correcto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api_guardar_usuario": {
+      "post": {
+        "tags": [
+          "usuario"
+        ],
+        "summary": "Guardar un nuevo usuario",
+        "description": "Guarda un nuevo usuario en la base de datos.",
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "username": "NuevoUsuario",
+                "password": "nuevacontraseña",
+                "email": "nuevo_usuario@example.com",
+                "tipo_usuario": "cliente"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "codigo": "1",
+                  "mensaje": "Usuario guardado correctamente."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api_actualizar_usuario": {
+      "post": {
+        "tags": [
+          "usuario"
+        ],
+        "summary": "Actualizar un usuario existente",
+        "description": "Actualiza la información de un usuario existente.",
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "username": "UsuarioExistente",
+                "new_username": "NuevoUsuario",
+                "new_password": "nuevacontraseña",
+                "new_email": "nuevo_usuario@example.com",
+                "tipo_usuario": "cliente"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "codigo": "1",
+                  "mensaje": "Usuario actualizado correctamente."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api_eliminar_usuario": {
+      "post": {
+        "tags": [
+          "usuario"
+        ],
+        "summary": "Eliminar un usuario",
+        "description": "Elimina un usuario de la base de datos.",
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "id": 1
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "codigo": "1",
+                  "mensaje": "Usuario eliminado correctamente."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

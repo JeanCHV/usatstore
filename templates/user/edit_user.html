@@ -1,0 +1,48 @@
+{% extends "index.html" %}
+{% block titulo %}
+Editar Usuario
+{% endblock %}
+{% block contenido %}
+
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card p-4 border-0 shadow rounded">
+                    <div class="card-body">
+                        <h2 class="card-title mb-4 text-primary">¡Editar Usuario!</h2>
+                        <form action="{{url_for('actualizar_usuario')}}" method="post">
+                            <input type="hidden" name="id" value="{{usuarios[0]}}">
+                            <div class="mb-3">
+                                <label for="Username" class="form-label">Username</label>
+                                <input value="{{usuarios[1]}}" required type="text" class="form-control" placeholder="Username" name="username" id="username">
+                            </div>
+                            <div class="mb-3">
+                                <label for="New_Username" class="form-label">New Username</label>
+                                <input  required type="text" class="form-control" placeholder="New_Username" name="new_username" id="new_username">
+                            </div>
+                            <div class="mb-3">
+                                <label for="New_Password" class="form-label">Password</label>
+                                <input value="{{usuarios[2]}}" required type="text" class="form-control" placeholder="Password" name="new_password" id="new_password">
+                            </div>
+                            <div class="mb-3">
+                                <label for="New_email" class="form-label">E-mail</label>
+                                <input value="{{usuarios[3]}}" required type="text" class="form-control" placeholder="New_email" name="new_email" id="new_email">
+                            </div>
+                            <div class="mb-3">
+                                <label for="Tipo_Usuario" class="form-label">Tipo Usuario</label>
+                                <input value="{{usuarios[4]}}" required type="text" class="form-control" placeholder="Tipo_Usuario" name="tipo_usuario" id="tipo_usuario">
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+                                <a href="{{url_for('formulario_crud_usuario')}}" class="btn btn-danger btn-lg mt-3">Volver</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "index.html" %}
+{% block titulo %} Lista Clientes
+<link rel="stylesheet" href="{{url_for('static',filename='css/tablas.css')}}" />
+{% endblock %}
+{% block contenido %}
+<section>
+    <div class="extras">
+      <div class="listBtn">
+        <a href="{{url_for('formulario_agregar_cliente')}}" class="btn btn-success">Agregar Cliente <i class="fa-solid fa-plus"></i></a>
+      </div>
+    </div>
+    <div class="contenido">
+      <div class="table-responsive">
+        <table  class="table">
+          <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">NOMBRE</th>
+                <th scope="col">EMAIL</th>
+                <th scope="col">DIRECCION</th>
+
+                <th scope="col">Editar</th>
+                <th scope="col">Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for cliente in clientes %}
+            <tr>
+                <td>{{cliente[0]}}</td>
+                <td>{{cliente[1]}}</td>
+                <td>{{cliente[2]}}</td>
+                <td>{{cliente[3]}}</td>
+                <td>
+                    {# Pasar el id (lo que hay en clientes[0])#}
+                    
+                  
+                </td>
+                <td>
+                  <form action="{{url_for('eliminar_cliente')}}" method="POST">
+                      
+                    <a href="{{url_for('editar_cliente', id=cliente[0])}}" class="btn btn-warning  mb-2">Editar<i class="fa-solid fa-pen-to-square"></i></a>
+                    <input type="hidden" name="id" value="{{cliente[0]}}">
+                    <button class="btn btn-danger mb-2"><i class="fa-solid fa-trash">Eiminar</i></button>
+                </form>
+                </td>
+            </tr>
+            {% endfor %}
+    
+          </tbody>
+        </table>
+      </div>
+      
+  
+    </div>
+  </section>
+{% endblock %}

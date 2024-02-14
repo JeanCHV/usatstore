@@ -1,0 +1,52 @@
+{% extends "index.html" %}
+{% block titulo %} Lista de Productos {% endblock %}
+{% block contenido %}
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h1 class="display-4">Catalogo de Productos</h1>
+            <a href="{{url_for('formulario_agregar_producto')}}" class="btn btn-success btn-lg">Agregar Producto</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Imagen</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for producto in productos %}
+                    <tr>
+                        <td>{{producto[0]}}</td>
+                        <td>{{producto[1]}}</td>
+                        <td>{{producto[2]}}</td>
+                        <td>{{producto[3]}}</td>
+                        <td>{{producto[4]}}</td>
+                        <td>
+                            {% if producto[5] %}
+                            <img src="{{ url_for('static', filename='img/productos/' + producto[5]) }}" alt="" style="max-width: 90px;">
+                            {% else %}
+                            Sin imagen
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{url_for('editar_producto', id=producto[0])}}" class="btn btn-warning btn-sm">Editar</a>
+                            <form action="{{url_for('eliminar_producto')}}" method="POST" class="d-inline">
+                                <input type="hidden" name="id" value="{{producto[0]}}">
+                                <button class="btn btn-danger btn-sm">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}

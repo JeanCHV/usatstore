@@ -1,0 +1,67 @@
+{% extends "index.html" %}
+{% block titulo %} Lista de Productos {% endblock %}
+{% block contenido %}
+<section class="py-5">
+    <div class="container px-4 px-lg-5">
+        <hr>
+        {% if esAdministrador == False %}
+        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+            <a href="{{url_for('formulario_crud_producto')}}"><button type="button" class="btn btn-success">Gestionar
+                    Productos</button></a>
+        </div>
+        {% endif %}
+        </h2>
+        <hr>
+
+        <div class="row">
+            <div class="container">
+                <!-- Comienza el bucle para las tarjetas -->
+
+                <div class="products col-md-4 col-lg-3 mb-4">
+                     {% for producto in productos %}
+                    <div class="col-md-4 mb-4">
+                        <div class="producto">
+                            <div class="cont-img">
+                                {% if producto[5] %}
+                                <img class="item-image card-img-top"
+                                    src="{{ url_for('static', filename='img/productos/' + producto[5]) }}" alt=""
+                                    style="max-height: 200px; object-fit: cover;">
+                                {% else %}
+                                <img class="item-image card-img-top"
+                                    src="{{ url_for('static', filename='img/productos/producto-sin-imagen.png') }}"
+                                    alt="" style="max-height: 200px; object-fit: cover;">
+                                {% endif %}
+                            </div>
+                            <div class="cont-info">
+                                <h3 class="title">{{ producto[1] }}</h3>
+                                <p class="s-codigo">CODIGO: <span class="codigo">{{ producto[0] }}</span></p>
+                                <p class="s-stock">STOCK: <span class="stock">{{ producto[4] }}</span></p>
+
+                                <div class="producto-price">
+                                    <span class="s-precio">s/<span class="precio">{{ producto[3] }}</span></span>
+                                </div>
+                            </div>
+                            <button class="btn-add-cart" data-id="{{ producto[0]}}">Añadir Carrito <i
+                                    class="fa-solid fa-cart-plus"></i></button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+            <!-- Fin del bucle para las tarjetas -->
+
+        </div>
+
+    </div>
+       <script>
+        function showCart(x){
+            document.getElementById("products-id").style.display = "block";
+        }
+        function closeBtn(){
+             document.getElementById("products-id").style.display = "none";
+        }
+
+    </script>
+</section>
+{% endblock %}

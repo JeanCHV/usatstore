@@ -1,0 +1,34 @@
+{% extends "index.html" %}
+
+{%block stilos %} 
+<link rel="stylesheet" href="{{url_for('static',filename='../css/FormularioEdit_Agregar.css')}}"/>
+<link rel="stylesheet" href="../css/FormularioEdit_Agregar.css"/>
+{% endblock %}
+{% block contenido %}
+<section class="section">
+    <div class="columns">
+        <div class="column is-one-third">
+            <h3 class="is-size-3">Agregar Cliente</h3>
+                <form action="{{url_for('guardar_cliente')}}" method="post">
+                    <div class="col-md-3">
+                      <label for="username">Nombre:</label>
+                      <input type="text" class="form-control" placeholder="Nombre" name="nombre" id="nombre">
+                    </div>
+                    <div class="col-md-3">
+                      <label for="password" class="form-label">Email:</label>
+                      <input required type="text" class="form-control" placeholder="Email" name="email" id="email">
+                    </div>
+                    <div class="col-3">
+                <label for="direccion" class="form-label">Direccion</label>
+                <input required type="text" class="form-control" placeholder="Direccion" name="direccion" id="direccion">
+
+                    </div><br>
+         <button type="submit" class="btn btn-success mb-3">Guardar <i class="fa-regular fa-floppy-disk"></i></button>
+                <a href="{{url_for('formulario_crud_cliente')}}" class="btn btn-warning mb-3">Volver <i class="fa-sharp fa-solid fa-rotate-left"></i></a>
+                  </form>
+               
+        </div>
+    </div>
+
+</section>
+{% endblock %}
