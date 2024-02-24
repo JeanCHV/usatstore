@@ -15,7 +15,7 @@ import hashlib
 import random
 
 
-# from flask_jwt import JWT, jwt_required
+from flask_jwt import JWT, jwt_required
 app = Flask(__name__)
 ##### SEGURIDAD - INICIO #######################################################
 
@@ -39,7 +39,7 @@ app = Flask(__name__)
 app.debug = True
 app.config['SECRET_KEY'] = 'super-secret'
 
-# jwt = JWT(app, authenticate, identity)
+jwt = JWT(app, authenticate, identity)
 
 ##### SEGURIDAD - FIN ##########################################################
 # Validacion
@@ -67,157 +67,157 @@ def validar_TipoUsuario():
 
 # ### APIS
 # # PRODUCTOS
-# @app.route("/api_obtener_productos")
-# @jwt_required()
-# def api_obtener_productos():
-#     response = dict()
-#     datos = []
-#     productos = controlador_productos.obtener_productos()
-#     for producto in productos:
-#         miobjproducto = clase_producto.Producto(producto[0], producto[1], producto[2], producto[3], producto[4], producto[5])
-#         datos.append(miobjproducto.obtenerObjetoSerializable())
+@app.route("/api_obtener_productos")
+@jwt_required()
+def api_obtener_productos():
+    response = dict()
+    datos = []
+    productos = controlador_productos.obtener_productos()
+    for producto in productos:
+        miobjproducto = clase_producto.Producto(producto[0], producto[1], producto[2], producto[3], producto[4], producto[5])
+        datos.append(miobjproducto.obtenerObjetoSerializable())
 
-#     # Preparando responde objeto JSON
-#     response["data"] = datos
-#     response["code"] = 1
-#     response["message"] = "Listado de Productos correcto"
-#     return jsonify(response)
+    # Preparando responde objeto JSON
+    response["data"] = datos
+    response["code"] = 1
+    response["message"] = "Listado de Productos correcto"
+    return jsonify(response)
 
-# # Establece un límite máximo para el stock
-# MAX_STOCK = 100
+# Establece un límite máximo para el stock
+MAX_STOCK = 100
 
-# @app.route("/api_guardar_productos", methods=["POST"])
-# @jwt_required()
-# def api_guardar_producto():
-#     nombre = request.json["nombre"]
-#     descripcion = request.json["descripcion"]
-#     precio = request.json["precio"]
-#     stock = int(request.json["stock"])
-#     imagen = request.json["imagen"]
+@app.route("/api_guardar_productos", methods=["POST"])
+@jwt_required()
+def api_guardar_producto():
+    nombre = request.json["nombre"]
+    descripcion = request.json["descripcion"]
+    precio = request.json["precio"]
+    stock = int(request.json["stock"])
+    imagen = request.json["imagen"]
 
-#     # Verifica si el stock supera el límite
-#     if stock > MAX_STOCK:
-#         return jsonify({"codigo": "2", "mensaje": "El stock supera el límite máximo permitido."})
+    # Verifica si el stock supera el límite
+    if stock > MAX_STOCK:
+        return jsonify({"codigo": "2", "mensaje": "El stock supera el límite máximo permitido."})
 
-#     # Asegúrate de haber importado e inicializado controlador_productos
-#     controlador_productos.insertar_producto(nombre, descripcion, precio, stock, imagen)
+    # Asegúrate de haber importado e inicializado controlador_productos
+    controlador_productos.insertar_producto(nombre, descripcion, precio, stock, imagen)
 
-#     return jsonify({"codigo": "1", "mensaje": "Producto guardado correctamente."})
-
-
-
-# @app.route("/api_actualizar_producto", methods=["POST"])
-# @jwt_required()
-# def api_actualizar_producto():
-#     nombre = request.json["nombre"]
-#     descripcion = request.json["descripcion"]
-#     precio = request.json["precio"]
-#     stock = request.json["stock"]
-#     imagen = request.json["imagen"]
-#     id = request.json["id"]
-#     controlador_productos.actualizar_producto(nombre, descripcion, precio, stock, imagen, id)
-#     return jsonify({"codigo": "1", "mensaje": "Producto actualizado correctamente."})
-
-# @app.route("/api_eliminar_producto", methods=["POST"])
-# @jwt_required()
-# def api_eliminar_producto():
-#     controlador_productos.eliminar_producto(request.json["id"])
-#     return jsonify({"codigo": "1", "mensaje": "Producto Eliminado correctamente"})
-
-# # USUARIOS
-# @app.route("/api_obtener_usuarios")
-# @jwt_required()
-# def api_obtener_usuarios():
-#     response = dict()
-#     datos = []
-#     usuario = controlador_usuarios.obtener_usuarios()
-#     for usuario in usuario:
-#         miobjusuario = clase_usuario.Usuario(usuario[0], usuario[1], usuario[2], usuario[3],usuario[4])
-#         datos.append(miobjusuario.obtenerObjetoSerializable())
-
-#     # Preparando responde objeto JSON
-#     response["data"] = datos
-#     response["code"] = 1
-#     response["message"] = "Listado de Usuarios correcto"
-#     return jsonify(response)
-
-# @app.route("/api_guardar_usuario", methods=["POST"])
-# @jwt_required()
-# def api_guardar_usuario():
-#     username = request.json["username"]
-#     password = request.json["password"]
-#     email = request.json["email"]
-#     tipo_usuario = request.json["tipo_usuario"]
-
-#     h = hashlib.new('sha256')
-#     h.update(bytes(password, encoding="utf-8"))
-#     encpass = h.hexdigest()
-
-#     controlador_usuarios.registrar_usuario(username, encpass, email, tipo_usuario)
-#     return jsonify({"codigo": "1", "mensaje": "Usuario guardado correctamente."})
-
-# @app.route("/api_actualizar_usuario", methods=["POST"])
-# @jwt_required()
-# def api_actualizar_usuario():
-#     username = request.json["username"]
-#     new_username = request.json["new_username"]
-#     new_password = request.json["new_password"]
-#     new_email = request.json["new_email"]
-#     tipo_usuario = request.json["tipo_usuario"]
-
-#     controlador_usuarios.actualizar_usuario(new_username, new_password, new_email, tipo_usuario,username)
-#     return jsonify({"codigo": "1", "mensaje": "Usuario actualizado correctamente."})
-
-# @app.route("/api_eliminar_usuario", methods=["POST"])
-# @jwt_required()
-# def api_eliminar_usuario():
-#     id=request.json["id"]
-#     controlador_usuarios.eliminar_usuario(id)
-#     return jsonify({"codigo": "1", "mensaje": "Usuario eliminado correctamente."})
+    return jsonify({"codigo": "1", "mensaje": "Producto guardado correctamente."})
 
 
-# # CLIENTES
 
-# @app.route("/api_obtener_cliente")
-# @jwt_required()
-# def api_obtener_cliente():
-#     response = dict()
-#     datos = []
-#     cliente = controlador_clientes.obtener_todos_los_clientes()
-#     for cliente in cliente:
-#         miobjcliente = clase_cliente.Cliente(cliente[0], cliente[1], cliente[2], cliente[3])
-#         datos.append(miobjcliente.obtenerObjetoSerializable())
-#     # Preparando responde objeto JSON
-#     response["data"] = datos
-#     response["code"] = 1
-#     response["message"] = "Listado de Clientes correcto"
-#     return jsonify(response)
+@app.route("/api_actualizar_producto", methods=["POST"])
+@jwt_required()
+def api_actualizar_producto():
+    nombre = request.json["nombre"]
+    descripcion = request.json["descripcion"]
+    precio = request.json["precio"]
+    stock = request.json["stock"]
+    imagen = request.json["imagen"]
+    id = request.json["id"]
+    controlador_productos.actualizar_producto(nombre, descripcion, precio, stock, imagen, id)
+    return jsonify({"codigo": "1", "mensaje": "Producto actualizado correctamente."})
 
-# @app.route("/api_guardar_cliente", methods=["POST"])
-# @jwt_required()
-# def api_guardar_cliente():
-#     nombre = request.json["nombre"]
-#     email = request.json["email"]
-#     direccion = request.json["direccion"]
-#     controlador_clientes.crear_cliente(nombre, email, direccion)
-#     return jsonify({"codigo": "1", "mensaje": "Cliente guardado correctamente."})
+@app.route("/api_eliminar_producto", methods=["POST"])
+@jwt_required()
+def api_eliminar_producto():
+    controlador_productos.eliminar_producto(request.json["id"])
+    return jsonify({"codigo": "1", "mensaje": "Producto Eliminado correctamente"})
+
+# USUARIOS
+@app.route("/api_obtener_usuarios")
+@jwt_required()
+def api_obtener_usuarios():
+    response = dict()
+    datos = []
+    usuario = controlador_usuarios.obtener_usuarios()
+    for usuario in usuario:
+        miobjusuario = clase_usuario.Usuario(usuario[0], usuario[1], usuario[2], usuario[3],usuario[4])
+        datos.append(miobjusuario.obtenerObjetoSerializable())
+
+    # Preparando responde objeto JSON
+    response["data"] = datos
+    response["code"] = 1
+    response["message"] = "Listado de Usuarios correcto"
+    return jsonify(response)
+
+@app.route("/api_guardar_usuario", methods=["POST"])
+@jwt_required()
+def api_guardar_usuario():
+    username = request.json["username"]
+    password = request.json["password"]
+    email = request.json["email"]
+    tipo_usuario = request.json["tipo_usuario"]
+
+    h = hashlib.new('sha256')
+    h.update(bytes(password, encoding="utf-8"))
+    encpass = h.hexdigest()
+
+    controlador_usuarios.registrar_usuario(username, encpass, email, tipo_usuario)
+    return jsonify({"codigo": "1", "mensaje": "Usuario guardado correctamente."})
+
+@app.route("/api_actualizar_usuario", methods=["POST"])
+@jwt_required()
+def api_actualizar_usuario():
+    username = request.json["username"]
+    new_username = request.json["new_username"]
+    new_password = request.json["new_password"]
+    new_email = request.json["new_email"]
+    tipo_usuario = request.json["tipo_usuario"]
+
+    controlador_usuarios.actualizar_usuario(new_username, new_password, new_email, tipo_usuario,username)
+    return jsonify({"codigo": "1", "mensaje": "Usuario actualizado correctamente."})
+
+@app.route("/api_eliminar_usuario", methods=["POST"])
+@jwt_required()
+def api_eliminar_usuario():
+    id=request.json["id"]
+    controlador_usuarios.eliminar_usuario(id)
+    return jsonify({"codigo": "1", "mensaje": "Usuario eliminado correctamente."})
 
 
-# @app.route("/api_actualizar_cliente", methods=["POST"])
-# @jwt_required()
-# def api_actualizar_cliente():
-#     cliente_id=request.json["id"]
-#     nombre = request.json["nombre"]
-#     email = request.json["email"]
-#     direccion = request.json["direccion"]
-#     controlador_clientes.actualizar_cliente(cliente_id, nombre, email, direccion)
-#     return jsonify({"codigo": "1", "mensaje": "Cliente actualizado correctamente."})
+# CLIENTES
 
-# @app.route("/api_eliminar_cliente", methods=["POST"])
-# @jwt_required()
-# def api_eliminar_cliente():
-#     controlador_clientes.eliminar_cliente(request.json["id"])
-#     return jsonify({"codigo": "1", "mensaje": "Cliente Eliminado correctamente"})
+@app.route("/api_obtener_cliente")
+@jwt_required()
+def api_obtener_cliente():
+    response = dict()
+    datos = []
+    cliente = controlador_clientes.obtener_todos_los_clientes()
+    for cliente in cliente:
+        miobjcliente = clase_cliente.Cliente(cliente[0], cliente[1], cliente[2], cliente[3])
+        datos.append(miobjcliente.obtenerObjetoSerializable())
+    # Preparando responde objeto JSON
+    response["data"] = datos
+    response["code"] = 1
+    response["message"] = "Listado de Clientes correcto"
+    return jsonify(response)
+
+@app.route("/api_guardar_cliente", methods=["POST"])
+@jwt_required()
+def api_guardar_cliente():
+    nombre = request.json["nombre"]
+    email = request.json["email"]
+    direccion = request.json["direccion"]
+    controlador_clientes.crear_cliente(nombre, email, direccion)
+    return jsonify({"codigo": "1", "mensaje": "Cliente guardado correctamente."})
+
+
+@app.route("/api_actualizar_cliente", methods=["POST"])
+@jwt_required()
+def api_actualizar_cliente():
+    cliente_id=request.json["id"]
+    nombre = request.json["nombre"]
+    email = request.json["email"]
+    direccion = request.json["direccion"]
+    controlador_clientes.actualizar_cliente(cliente_id, nombre, email, direccion)
+    return jsonify({"codigo": "1", "mensaje": "Cliente actualizado correctamente."})
+
+@app.route("/api_eliminar_cliente", methods=["POST"])
+@jwt_required()
+def api_eliminar_cliente():
+    controlador_clientes.eliminar_cliente(request.json["id"])
+    return jsonify({"codigo": "1", "mensaje": "Cliente Eliminado correctamente"})
 
 ##Templates y Funciones
 #Cliente
