@@ -44,7 +44,7 @@ Flask-SQLAlchemy==3.0.2
 Flask-WTF==1.1.1
 flatbuffers==23.5.26
 fonttools==4.42.1
-fsspec==2023.10.0
+fsspec==2024.2.0
 gast==0.5.4
 google-auth==2.23.3
 google-auth-oauthlib==1.0.0
