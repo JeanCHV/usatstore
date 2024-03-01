@@ -91,7 +91,7 @@ parso==0.8.3
 pathlib==1.0.1
 pickleshare==0.7.5
 Pillow==9.5.0
-platformdirs==3.10.0
+platformdirs==4.2.0
 playsound==1.2.2
 pocketsphinx==5.0.1
 preshed==3.0.9
