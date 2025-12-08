@@ -13,33 +13,14 @@ import clases.clase_cliente as clase_cliente
 import clases.clase_auth as clase_auth
 import hashlib
 import random
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 
-
-from flask_jwt import JWT, jwt_required
-app = Flask(__name__)
-##### SEGURIDAD - INICIO #######################################################
-
-def authenticate(username, password):
-    usuario = controlador_usuarios.obtener_usuario(username)
-    user = clase_auth.Usuario(usuario[0], usuario[1], usuario[2])
-
-    h = hashlib.new('sha256')
-    h.update(bytes(password, encoding="utf-8"))
-    encpass = h.hexdigest()
-    if user and (user.password == encpass):
-        return user
-
-def identity(payload):
-    user_id = payload['identity']
-    usuario = controlador_usuarios.obtener_usuario_por_id(user_id)
-    user = clase_auth.Usuario(usuario[0], usuario[1], usuario[2])
-    return user
 
 app = Flask(__name__)
 app.debug = True
 app.config['SECRET_KEY'] = 'super-secret'
-
-jwt = JWT(app, authenticate, identity)
+app.config['JWT_SECRET_KEY'] = 'super-secret'  # Clave para JWT
+jwt = JWTManager(app)
 
 ##### SEGURIDAD - FIN ##########################################################
 # Validacion
@@ -532,20 +513,37 @@ def index():
 ##CARRITO
 @app.route("/carrito")
 def carrito():
-    if validar_token():
-        return render_template("carrito.html", esSesionIniciada=True, esAdministrador=False)
-    return redirect("/login")
+    if not validar_token():
+        return redirect("/login")
+    carrito_ids = session.get('carrito', [])
+    productos_carrito = []
+    total = 0
+    for pid in carrito_ids:
+        producto = controlador_productos.obtener_producto_por_id(pid)
+        if producto:
+            # Si obtener_producto_por_id retorna una lista, toma el primero
+            if isinstance(producto, list):
+                producto = producto[0]
+            productos_carrito.append(producto)
+            total += float(producto[3]) if producto[3] else 0
+    return render_template("carrito.html", esSesionIniciada=True, esAdministrador=False, productos_carrito=productos_carrito, total=total)
 
 @app.route("/agregar_al_carrito/<int:producto_id>", methods=["GET"])
 def agregar_al_carrito(producto_id):
-    # Lógica para agregar el producto al carrito (puedes almacenar esta información en una sesión)
-    # Por ejemplo, puedes tener una lista en la sesión que almacene los IDs de los productos en el carrito
     if 'carrito' not in session:
         session['carrito'] = []
     session['carrito'].append(producto_id)
     flash('Producto agregado al carrito', 'success')
     return redirect("/productos")
-
+# Endpoint para eliminar producto del carrito
+@app.route('/eliminar_del_carrito/<int:producto_id>', methods=['POST'])
+def eliminar_del_carrito(producto_id):
+    carrito = session.get('carrito', [])
+    if producto_id in carrito:
+        carrito.remove(producto_id)
+        session['carrito'] = carrito
+        flash('Producto eliminado del carrito', 'info')
+    return redirect('/carrito')
 
 # LOGIN Y REGISTRO
 @app.route("/login")
@@ -581,7 +579,45 @@ def registrar_usuario():
     return render_template("/user/register.html")
 
 
-
+@app.route('/api_login', methods=['POST'])
+def login_api():
+    username = request.json.get('username', None)
+    password = request.json.get('password', None)
+    print(f"[LOGIN_API] username recibido: {username}")
+    print(f"[LOGIN_API] password recibido: {password}")
+    usuario = controlador_usuarios.obtener_usuario(username)
+    print(f"[LOGIN_API] usuario encontrado: {usuario}")
+    if not usuario:
+        print("[LOGIN_API] Usuario no encontrado")
+        return jsonify({'msg': 'Usuario no encontrado'}), 401
+    h = hashlib.new('sha256')
+    h.update(bytes(password, encoding="utf-8"))
+    encpass = h.hexdigest()
+    print(f"[LOGIN_API] password hash recibido: {encpass}")
+    print(f"[LOGIN_API] password hash almacenado: {usuario[2]}")
+    if usuario[2] != encpass:
+        print("[LOGIN_API] Contraseña incorrecta")
+        return jsonify({'msg': 'Contraseña incorrecta'}), 401
+    print("[LOGIN_API] Login exitoso, generando token JWT")
+    access_token = create_access_token(identity=usuario[0])
+    return jsonify(access_token=access_token), 200
+# Endpoint API para obtener productos del carrito
+@app.route('/api_carrito')
+def api_carrito():
+    carrito_ids = session.get('carrito', [])
+    productos = []
+    for pid in carrito_ids:
+        producto = controlador_productos.obtener_producto_por_id(pid)
+        if producto:
+            if isinstance(producto, list):
+                producto = producto[0]
+            productos.append({
+                'id': producto[0],
+                'nombre': producto[1],
+                'precio': producto[3],
+                'imagen': f"/static/img/productos/{producto[5]}" if producto[5] else "/static/img/productos/producto-sin-imagen.png"
+            })
+    return jsonify({'productos': productos})
 
 @app.route("/procesar_login", methods=["POST"])
 def procesar_login():

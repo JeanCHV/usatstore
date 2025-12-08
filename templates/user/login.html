@@ -27,23 +27,19 @@
 
 
 
-                <form action="{{url_for('procesar_login')}}" method="post">
 
+                <form id="loginForm">
                   <div class="form-outline mb-4">
-
-                    <input required type="username" " class="form-control form-control-lg"
+                    <input required type="text" class="form-control form-control-lg"
                       placeholder="Usuario" name="username" id="username"/>
-
                   </div>
-
                   <div class="form-outline mb-4">
-                    <input requ|ired type="password"  class="form-control form-control-lg"
+                    <input required type="password" class="form-control form-control-lg"
                       placeholder="Contraseña" name="password" id="password"/>
-
                   </div>
                   <button class="btn btn-primary btn-lg btn-block" type="submit">Iniciar Sesión</button>
-
                 </form>
+                <div id="loginError" style="color:red; margin-top:10px;"></div>
 
 
 
@@ -67,11 +63,36 @@
     </div>
     </div>
   </section>
-  <!-- Agrega este script en tu archivo "login.html" -->
+
 <script>
-  $(document).ready(function () {
-    $('#registroExitosoModal').modal('show');
-  });
+document.getElementById('loginForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  const errorDiv = document.getElementById('loginError');
+  errorDiv.textContent = '';
+  try {
+    const response = await fetch('/api_login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username, password })
+    });
+    const data = await response.json();
+    if (response.ok) {
+      localStorage.setItem('access_token', data.access_token);
+      // Guardar el token JWT en una cookie llamada 'xyz'
+      document.cookie = `xyz=${data.access_token}; path=/`;
+      document.cookie = `username=${username}; path=/`;
+      window.location.href = '/index';
+    } else {
+      errorDiv.textContent = data.msg || 'Error al iniciar sesión.';
+    }
+  } catch (err) {
+    errorDiv.textContent = 'Error de conexión.';
+  }
+});
 </script>
 
   {% endblock %}

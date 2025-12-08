@@ -70,46 +70,39 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                {% for producto in productos_carrito %}
                                                 <tr>
-                                                    <td><img src="../../img/productos/TecladoLogitec1-redi.jpg"
-                                                            width="50" height="50" /></td>
-                                                    <td>Teclado Logitec G213</td>
-                                                    <td class="text-success">En Stock</td>
-                                                    <td><input class="form-control" type="text" value="2" /></td>
-                                                    <td class="text-right">S/ 150.00</td>
-                                                    <td class="text-right">
-                                                        <button class="btn btn-sm btn-danger">
-                                                            <i class="fa fa-trash"></i>
-                                                        </button>
+                                                    <td>
+                                                        <img src="{{ url_for('static', filename='img/productos/' + (producto[5] if producto[5] else 'producto-sin-imagen.png')) }}" width="50" height="50" />
                                                     </td>
-                                                    <td class="text-right">S/ 300.00</td>
+                                                    <td>{{ producto[1] }}</td>
+                                                    <td class="text-success">En Stock</td>
+                                                    <td><input class="form-control" type="number" value="1" min="1" /></td>
+                                                    <td class="text-right">S/ {{ producto[3] }}</td>
+                                                    <td class="text-right">
+                                                        <form method="post" action="/eliminar_del_carrito/{{ producto[0] }}" style="display:inline;">
+                                                            <button class="btn btn-sm btn-danger" type="submit">
+                                                                <i class="fa fa-trash"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                    <td class="text-right">S/ {{ producto[3] }}</td>
                                                 </tr>
+                                                {% endfor %}
                                                 <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td colspan="5"></td>
                                                     <td>Sub-Total</td>
-                                                    <td class="text-right">S/ 768.00</td>
+                                                    <td class="text-right">S/ {{ total }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <th></th>
+                                                    <td colspan="5"></td>
                                                     <td>Transporte</td>
                                                     <td class="text-right">S/ 50.00</td>
                                                 </tr>
                                                 <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <th></th>
+                                                    <td colspan="5"></td>
                                                     <td><strong>Total</strong></td>
-                                                    <td class="text-right"><strong>S/ 818.00</strong></td>
+                                                    <td class="text-right"><strong>S/ {{ total + 50 }}</strong></td>
                                                 </tr>
                                             </tbody>
                                         </table>

@@ -37,11 +37,53 @@
     <!--<link rel="stylesheet" href="{{ url_for('static', filename='css/carrito.css') }}" />-->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/cart.css') }}" />
     <link rel="icon" href="/static/img/logo.svg">
+
     <!-- JavaScript -->
     <script src="https://kit.fontawesome.com/2c36e9b7b1.js"></script>
-    <!--<script src="{{ url_for('static', filename='js/componentes/linea-progreso.js') }}"></script>-->
-    <script src="{{ url_for('static', filename='js/carrito.js') }}"></script>
-    <!--<script src="{{ url_for('static', filename='js/componentes/formularioCarrito.js') }}"></script>-->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Añadir producto al carrito
+        document.body.addEventListener('click', async function(e) {
+            if (e.target.classList.contains('btn-add-cart')) {
+                e.preventDefault();
+                const id = e.target.getAttribute('data-id');
+                await fetch(`/agregar_al_carrito/${id}`);
+                actualizarCarritoFlotante();
+            }
+        });
+
+        // Actualizar carrito flotante
+        async function actualizarCarritoFlotante() {
+            const res = await fetch('/api_carrito');
+            const data = await res.json();
+            const itemsDiv = document.querySelector('.card-items');
+            const totalDiv = document.querySelector('.price-total');
+            const countDiv = document.querySelector('.count-product');
+            itemsDiv.innerHTML = '';
+            let total = 0;
+            let count = 0;
+            data.productos.forEach(producto => {
+                const item = document.createElement('div');
+                item.classList.add('item');
+                item.innerHTML = `
+                    <img src="${producto.imagen}" width="40" height="40">
+                    <div class="item-content">
+                        <h6>${producto.nombre}</h6>
+                        <span>S/. ${producto.precio}</span>
+                    </div>
+                `;
+                itemsDiv.appendChild(item);
+                total += parseFloat(producto.precio);
+                count++;
+            });
+            totalDiv.textContent = total.toFixed(2);
+            countDiv.textContent = count;
+        }
+
+        // Inicializar carrito flotante al cargar
+        actualizarCarritoFlotante();
+    });
+    </script>
 
 </head>
 

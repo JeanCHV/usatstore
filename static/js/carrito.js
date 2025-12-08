@@ -17,8 +17,12 @@ document.addEventListener('DOMContentLoaded', function() {
     loadEventListeners(); // Corregido el nombre de la función
     function loadEventListeners() {
         console.log("Hola");
-        allcontainerCart.addEventListener('click', addProduct);
-        containerBuyCart.addEventListener('click', deleteProduct);
+        if (allcontainerCart) {
+            allcontainerCart.addEventListener('click', addProduct);
+        }
+        if (containerBuyCart) {
+            containerBuyCart.addEventListener('click', deleteProduct);
+        }
     }
 
     function addProduct(e) {
