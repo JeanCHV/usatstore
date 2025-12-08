@@ -1,9 +1,9 @@
 import hashlib
 import random
-from bd import obtener_conexion
+from bd import sqlConn
 
 def obtener_usuario(username):
-    conexion = obtener_conexion()
+    conexion = sqlConn()
     usuario = None
     with conexion.cursor() as cursor:
         cursor.execute(
@@ -14,7 +14,7 @@ def obtener_usuario(username):
 
 
 def obtener_usuarios():
-    conexion = obtener_conexion()
+    conexion = sqlConn()
     usuarios = []
     with conexion.cursor() as cursor:
         cursor.execute("SELECT id, username,password,email,tipo_usuario FROM usuarios")
@@ -23,7 +23,7 @@ def obtener_usuarios():
     return usuarios
 
 def obtener_Tipo_usuario(username):
-    conexion = obtener_conexion()
+    conexion = sqlConn()
     Tipo_usuario = None
     with conexion.cursor() as cursor:
         cursor.execute(
@@ -34,7 +34,7 @@ def obtener_Tipo_usuario(username):
 
 
 def obtener_usuario_por_id(id):
-    conexion = obtener_conexion()
+    conexion = sqlConn()
     usuario = None
     with conexion.cursor() as cursor:
         cursor.execute(
@@ -44,7 +44,7 @@ def obtener_usuario_por_id(id):
     return usuario
 
 def obtener_nombre_usuario(token):
-    conexion = obtener_conexion()
+    conexion = sqlConn()
     usuario = None
     with conexion.cursor() as cursor:
         cursor.execute(
@@ -57,7 +57,7 @@ def obtener_nombre_usuario(token):
 
 
 def actualizartoken_usuario(username, token):
-    conexion = obtener_conexion()
+    conexion = sqlConn()
     with conexion.cursor() as cursor:
         cursor.execute("UPDATE usuarios SET token = %s WHERE username = %s",
                        (token, username))
@@ -66,7 +66,7 @@ def actualizartoken_usuario(username, token):
 
     ########
 def registrar_usuario(username, password, email,tipo_usuario):
-    conexion = obtener_conexion()
+    conexion = sqlConn()
     with conexion.cursor() as cursor:
         cursor.execute("INSERT INTO usuarios (username, password, email,tipo_usuario) VALUES (%s, %s, %s,%s)",
                        (username, password, email,tipo_usuario))
@@ -74,14 +74,14 @@ def registrar_usuario(username, password, email,tipo_usuario):
     conexion.close()
 
 def eliminar_usuario(id):
-    conexion = obtener_conexion()
+    conexion = sqlConn()
     with conexion.cursor() as cursor:
         cursor.execute("DELETE FROM usuarios WHERE id = %s", (id,))
     conexion.commit()
     conexion.close()
 
 def actualizar_usuario( new_username, new_password, new_email,tipo_usuario,username):
-    conexion = obtener_conexion()
+    conexion = sqlConn()
     #Encripta la contraseña al momento de actualizar
     h = hashlib.new('sha256')
     h.update(bytes(new_password, encoding="utf-8"))
@@ -95,7 +95,7 @@ def actualizar_usuario( new_username, new_password, new_email,tipo_usuario,usern
 
 
 def verificar_credenciales(username, password):
-    conexion = obtener_conexion()
+    conexion = sqlConn()
     with conexion.cursor() as cursor:
         cursor.execute("SELECT id, username, password FROM usuarios WHERE username = %s", (username,))
         usuario = cursor.fetchone()
@@ -106,7 +106,7 @@ def verificar_credenciales(username, password):
 
 
 def obtener_todos_los_usuarios():
-    conexion = obtener_conexion()
+    conexion = sqlConn()
     usuarios = []
     with conexion.cursor() as cursor:
         cursor.execute("SELECT id, username,email,tipo_usuario FROM usuarios")

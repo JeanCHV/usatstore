@@ -1,4 +1,4 @@
-from bd import obtener_conexion
+from bd import sqlConn
 import os
 from flask import current_app
 from flask import request
@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 
 
 def obtener_productos():
-    conexion = obtener_conexion()
+    conexion = sqlConn()
     productos = []
     with conexion.cursor() as cursor:
         cursor.execute("SELECT id, nombre, descripcion, precio, stock, imagen FROM productos")
@@ -15,7 +15,7 @@ def obtener_productos():
     return productos
 
 def obtener_producto_por_id(id):
-    conexion = obtener_conexion()
+    conexion = sqlConn()
     producto = None
     with conexion.cursor() as cursor:
         cursor.execute(
@@ -25,7 +25,7 @@ def obtener_producto_por_id(id):
     return producto
 
 def obtener_nombre_imagen(id):
-    conexion = obtener_conexion()
+    conexion = sqlConn()
     producto = None
     with conexion.cursor() as cursor:
         cursor.execute(
@@ -35,7 +35,7 @@ def obtener_nombre_imagen(id):
     return producto
 
 def obtener_producto_por_nombre(nom):
-    conexion = obtener_conexion()
+    conexion = sqlConn()
 
     try:
         with conexion.cursor() as cursor:
@@ -53,7 +53,7 @@ def obtener_producto_por_nombre(nom):
 
 
 def insertar_producto(nombre, descripcion, precio, stock, imagen):
-    conexion = obtener_conexion()
+    conexion = sqlConn()
     with conexion.cursor() as cursor:
         cursor.execute("INSERT INTO productos(nombre, descripcion, precio, stock, imagen) VALUES (%s, %s, %s, %s, %s)",
                        (nombre, descripcion, precio, stock, imagen))
@@ -61,7 +61,7 @@ def insertar_producto(nombre, descripcion, precio, stock, imagen):
     conexion.close()
 
 def actualizar_producto(nombre, descripcion, precio, stock, imagen, id):
-    conexion = obtener_conexion()
+    conexion = sqlConn()
     with conexion.cursor() as cursor:
         cursor.execute("UPDATE productos SET nombre = %s, descripcion = %s, precio = %s, stock = %s, imagen = %s WHERE id = %s",
                        (nombre, descripcion, precio, stock, imagen, id))
@@ -78,7 +78,7 @@ def actualizar_producto(nombre, descripcion, precio, stock, imagen, id):
     conexion.close()
 
 def eliminar_producto(id):
-    conexion = obtener_conexion()
+    conexion = sqlConn()
     with conexion.cursor() as cursor:
         cursor.execute("DELETE FROM productos WHERE id = %s", (id,))
     conexion.commit()
